@@ -87,7 +87,8 @@ def extract(ini_path, res_dict):
     # is changed, since our extraction task runs asynchronously and may
     # be finished only when the automatic index update has already run.
     pkg_dict = toolkit.get_action('package_show')(
-            {'validate': False}, {'id': res_dict['package_id']})
+            {'ignore_auth': True, 'validate': False},
+            {'id': res_dict['package_id'], 'use_default_schema': True})
     index_for('package').update_dict(pkg_dict)
 
     for plugin in PluginImplementations(IExtractorPostprocessor):
